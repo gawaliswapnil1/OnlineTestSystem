@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
 import com.example.demo.model.User;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -25,15 +24,6 @@ public class UserDALImpl implements UserDAL{
 
 	//Get the properties value from application.properties
 
-	@Value("${spring.data.mongodb.host}") 
-	private String host;
-
-	@Value("${spring.data.mongodb.port}")
-	private int port;
-	@Value("${spring.data.mongodb.database}")
-	private String database;
-
-
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	@Autowired
@@ -42,7 +32,6 @@ public class UserDALImpl implements UserDAL{
 	@Override
 	public String addNewUser(User user) {
 		
-		System.out.println(mongoTemplate.getDb().getName());
 		mongoTemplate.save(user);
 		return "User Added Successfully";
 	}
@@ -55,9 +44,8 @@ public class UserDALImpl implements UserDAL{
 	@Override
 	public String validateUser(User user) 
 	{
-		MongoClient mongoClient = new MongoClient(new ServerAddress(host,port));
-		MongoDatabase db = mongoClient.getDatabase(database);
-		MongoCollection<Document> collection = db.getCollection("User");
+		
+		MongoCollection<Document> collection=mongoTemplate.getCollection("User");
 		String result="Please check userName or password";
 		BasicDBObject searchQuery = new BasicDBObject();
 		searchQuery.put("name",user.getName());
@@ -81,8 +69,16 @@ public class UserDALImpl implements UserDAL{
 	@Override public String signUpUser(User user) {
 
 		
-		
-		String result="";
+		MongoCollection<Document> collection=mongoTemplate.getCollection("User");
+		String result="Please check userName or password";
+		BasicDBObject searchQuery = new BasicDBObject();
+		searchQuery.put("name",user.getName());
+		MongoCursor<Document> cursor = collection.find(searchQuery).cursor();
+		while (cursor.hasNext()) 
+		{
+			Document dbDocument=cursor.next();
+			return "Please check userName";
+		}
 
 		return result;
 

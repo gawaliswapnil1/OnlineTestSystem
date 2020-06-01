@@ -40,7 +40,8 @@ public class UserController {
 	}
 
 	@PostMapping("/signUpUser") public String signUpUser(@RequestBody User user)
-	{ return userService.signUpUser(user);
+	{ 
+		return userService.signUpUser(user);
 
 	}
 
