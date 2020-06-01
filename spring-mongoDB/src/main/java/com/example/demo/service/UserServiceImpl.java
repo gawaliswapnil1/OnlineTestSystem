@@ -8,43 +8,44 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserDAL;
-import com.example.demo.repository.UserRepository;
+
+import com.mongodb.BasicDBObject;
 
 @Service
 public class UserServiceImpl implements UserService{
 
-	@Autowired
-	private UserRepository repository;
+	
 	@Autowired
 	private UserDAL userdal;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Override
 	public String addNewUser(User user) {
-		
+
 		user.setpassword(passwordEncoder.encode(user.getpassword()));
-		repository.save(user);
+		userdal.addNewUser(user);
 		return "Added User with ID: "+user.getId();	}
 
 	@Override
 	public List<User> findAll() {
-		
-		return repository.findAll();
+
+		return userdal.findAllUsers();
 	}
 
 	@Override
 	public String validateUser(User user) {
-		 
+
 		return userdal.validateUser(user);
 	}
 
-	
+
+
 	public String signUpUser(User user) {
-		
-		return userdal.validateUser(user);
-	}
 
-	
+		return userdal.signUpUser(user); }
+
+
+
 
 }

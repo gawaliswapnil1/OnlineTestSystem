@@ -21,6 +21,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	public String saveQuestion(Question que)
 	{
+		
 		repository.save(que);
 		return "Added Question Successfully "+que.getId();
 	}

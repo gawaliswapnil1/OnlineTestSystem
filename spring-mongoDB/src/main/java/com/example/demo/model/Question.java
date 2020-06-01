@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
 
-@Document(collection="QuestionTest")
+@Document(collection="Question")
 @Component
 public class Question {
 	
 	@Id
-	private String  id;
+	private String  questionid;
 	private String language;
 	private int weightage;
 	private String type;
@@ -72,10 +72,10 @@ public class Question {
 	}
 	
 	public String getId() {
-		return id;
+		return questionid;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.questionid = id;
 	}
 	
 	
