@@ -1,9 +1,8 @@
 package com.example.demo.resource;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.bson.types.ObjectId;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Question;
-import com.example.demo.repository.QuestionReporitory;
+import com.example.demo.service.QuestionService;
 
 @RestController
 public class QuestionController {
 
 	@Autowired
-	private QuestionReporitory repository;
+	private QuestionService questionService;
 	
 	
 	@PostMapping("/addQuestion")
 	public String saveQuestion(@RequestBody Question que)
 	{
-		repository.save(que);
-		return "Added Question Successfully "+que.getId();
+		return questionService.saveQuestion(que);
+		
 	}
 	
 	@GetMapping("/findAllQuestion")
 	public List<Question> getQuestions() 
 	{
-		return repository.findAll();
+		return questionService.getQuestions();
 	}
 	
 	@GetMapping("/findAllQuestion/{id}")
-	public Optional<Question> getQuestion(@PathVariable String id)
+	public Question getQuestion(@PathVariable String id)
 	{
-		return repository.findById(id);
+		return questionService.getQuestion(id);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public String deletebyId(@PathVariable String id)
 	{
-		repository.deleteById(id);
-		return "Question deleted successfully";
+		return questionService.deletebyId(id);
+		
 	}
 }

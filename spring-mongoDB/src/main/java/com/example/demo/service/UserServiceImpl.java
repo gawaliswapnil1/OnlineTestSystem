@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserDAL;
 
-import com.mongodb.BasicDBObject;
+
 
 @Service
 public class UserServiceImpl implements UserService{

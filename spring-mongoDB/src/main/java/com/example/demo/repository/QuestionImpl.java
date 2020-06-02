@@ -3,9 +3,10 @@ package com.example.demo.repository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Component;
 
 import com.example.demo.model.Question;
-
+@Component
 public class QuestionImpl implements QuestionDAL{
 
 	

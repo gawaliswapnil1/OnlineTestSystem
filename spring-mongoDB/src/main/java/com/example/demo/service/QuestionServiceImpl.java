@@ -1,46 +1,39 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Question;
-import com.example.demo.model.User;
-import com.example.demo.repository.QuestionReporitory;
+import com.example.demo.repository.QuestionDAL;
 
+@Service
 public class QuestionServiceImpl implements QuestionService {
 
 	@Autowired
-	private QuestionReporitory repository;
-
+	private QuestionDAL queDal;
+	
 	public String saveQuestion(Question que)
 	{
-		
-		repository.save(que);
-		return "Added Question Successfully "+que.getId();
+		return queDal.saveQuestion(que);
 	}
 
 
 	public List<Question> getQuestions() 
 	{
-		return repository.findAll();
+		return queDal.getQuestions();
 	}
 
 
-	public Optional<Question> getQuestion(String id)
+	public Question getQuestion(String id)
 	{
-		return repository.findById(id);
+		return queDal.getQuestion(id);
 	}
 
 	public String deletebyId(String id)
 	{
-		repository.deleteById(id);
-		return "Question deleted successfully";
+		return queDal.deletebyId(id);
+		
 	}
 }
