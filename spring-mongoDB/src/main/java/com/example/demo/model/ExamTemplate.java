@@ -66,11 +66,6 @@ public class ExamTemplate {
 	public void setTotalmarks(int totalmarks) {
 		this.totalmarks = totalmarks;
 	}
-	@Override
-	public String toString() {
-		return "ExamTemplate [id=" + id + ", templatename=" + templatename + ", category=" + category + ", level="
-				+ level + ", hardques=" + hardques + ", mediumques=" + mediumques + ", easyques=" + easyques
-				+ ", totalmarks=" + totalmarks + "]";
-	}
+	
 	
 }

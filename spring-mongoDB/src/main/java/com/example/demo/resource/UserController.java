@@ -21,8 +21,8 @@ public class UserController {
 	@PostMapping("/addNewUser")
 	public String addNewUser(@RequestBody User user)
 	{
-		userService.addNewUser(user);
-		return "Added User with ID: "+user.getId();
+		return userService.addNewUser(user);
+		
 	}
 
 	@GetMapping("/findAllUser")
