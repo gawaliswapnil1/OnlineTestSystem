@@ -1,0 +1,9 @@
+package com.example.demo.service;
+
+import com.example.demo.model.Exam;
+
+public interface ExamService {
+	public String createExam( Exam exam);
+	public Exam getExam( String examId);
+
+}
