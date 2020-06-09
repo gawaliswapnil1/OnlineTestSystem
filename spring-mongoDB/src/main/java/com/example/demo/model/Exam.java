@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Document(collection="Exam")
 @Component
-
 public class Exam {
 	
 	@Id
@@ -21,12 +20,6 @@ public class Exam {
 	private List<Question> questions;
 	
 	
-	@Override
-	public String toString() {
-		return "Exam [examid=" + examid + ", examname=" + examname + ", category=" + category + ", outofmarks="
-				+ outofmarks + ", userid=" + userid + ", examtemplateid=" + examtemplateid + ", questions=" + questions
-				+ "]";
-	}
 	public String getExamid() {
 		return examid;
 	}

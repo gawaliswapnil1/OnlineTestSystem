@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.model.Question;
+import com.example.demo.model.QuestionLevel;
 
 public interface QuestionService {
 	
@@ -12,6 +13,7 @@ public interface QuestionService {
 	public List<Question> getQuestions();
 	public Question getQuestion( String id);
 	public String deletebyId(String id);
+	public List<Question> getQuestionBasedOnLevel(String level);
 	
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Question;
+import com.example.demo.model.QuestionLevel;
 import com.example.demo.repository.QuestionDAL;
 
 @Service
@@ -35,5 +36,12 @@ public class QuestionServiceImpl implements QuestionService {
 	{
 		return queDal.deletebyId(id);
 		
+	}
+
+
+	@Override
+	public List<Question> getQuestionBasedOnLevel(String level) {
+		
+		return queDal.getQuestionBasedOnLevel(level);
 	}
 }

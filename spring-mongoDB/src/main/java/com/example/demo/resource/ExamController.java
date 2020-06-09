@@ -21,7 +21,7 @@ public class ExamController {
 		return examService.createExam(exam);
 	}
 	
-	@GetMapping("/getExam/{id}")
+	@GetMapping("/getExam/{examId}")
 	public Exam getExam(@PathVariable String examId)
 	{
 		return examService.getExam(examId);

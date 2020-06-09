@@ -15,6 +15,13 @@ public class Question {
 	private String  questionid;
 	private String language;
 	private int weightage;
+	private String level;
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
 	private String type;
 	private String question;
 	private ArrayList choices;
