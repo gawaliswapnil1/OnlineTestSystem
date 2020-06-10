@@ -6,10 +6,10 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.demo.model.Exam;
 import com.example.demo.model.ExamTemplate;
 import com.example.demo.model.Question;
-import com.example.demo.model.QuestionLevel;
 import com.example.demo.repository.ExamDAL;
 
 @Service
@@ -38,7 +38,7 @@ public class ExamServiceImpl implements ExamService {
 		//set exam attribute name,category
 		exam.setExamname(examTemplate.getTemplatename()+"_"+exam.getUserid());
 		exam.setCategory(examTemplate.getCategory());
-		
+		exam.setOutofmarks(examTemplate.getTotalmarks());
 		//get questions based on template level
 		List<Question> examQuestion=new ArrayList<Question>();
 		List<Question> hardQuestionList = questionService.getQuestionBasedOnLevel("hard");

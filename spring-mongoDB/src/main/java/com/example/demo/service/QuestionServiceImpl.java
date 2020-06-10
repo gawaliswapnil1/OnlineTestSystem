@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Question;
-import com.example.demo.model.QuestionLevel;
 import com.example.demo.repository.QuestionDAL;
 
 @Service
