@@ -41,7 +41,7 @@ public class QuestionImpl implements QuestionDAL{
 
 	@Override
 	public String deletebyId(String id) {
-		mongoTemplate.remove(id);
+		mongoTemplate.remove(mongoTemplate.findById(id, Question.class));
 		return "Question Deleted successfully";
 	}
 

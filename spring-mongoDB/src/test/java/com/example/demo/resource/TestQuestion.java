@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,26 +21,41 @@ import com.example.demo.model.Question;
 public class TestQuestion {
 	@Autowired
 	QuestionController questionController;
-	@Autowired
-	Question question;
+	//@Autowired
+	//Question question;
+	 
+	Question que=null;
 	
+	@BeforeEach
+	 void init() throws JSONException
+	{
+	    
+	}
+	
+	@AfterEach
+	 void tearOff() 
+	{
+		//
+	}
 	
 	@Test
-	void testGetQuestion() {		
-		Assert.noNullElements((questionController.getQuestions()),"Got All Questionss");
+	void testGetQuestion() {
+		
+		Assert.noNullElements(questionController.getQuestions(),"Got All Questions");
 	}
 	
 	@Test
 	void testCreateQuestion() throws JSONException
 	{
-		Question que=createDummyQuestionForInsertion();
-		
+		//Question que=createDummyQuestionForInsertion();
+		que=createDummyQuestionForInsertion();
 		assertEquals(questionController.saveQuestion(que),"Question Added successfully "+que.getId());
+		questionController.deletebyId(que.getId());
 		
 		
 	}
 	
-	private static Question createDummyQuestionForInsertion() throws JSONException
+	private  Question createDummyQuestionForInsertion() throws JSONException
 	{
 		Question que=new Question();
 		ArrayList ans=new ArrayList();

@@ -23,12 +23,12 @@ class TestUser {
 	@Test
 	void testValidateCredential()
 	{
-		String username="swapnil";
-		String	passwrd="swapnil123";
+		String username="Swapnil";
+		String	passwrd="Swapnil123";
 
 		user.setName(username);
 		user.setpassword(passwrd);
-		assertEquals("SuperAdmin", userController.validateUser(user),"User credentials are validated");	
+		assertEquals("admin", userController.validateUser(user),"User credentials are validated");	
 		
 	}
 	

@@ -23,6 +23,13 @@ public class ExamImpl implements ExamDAL{
 		return "Exam Created successfully "+exam.getExamid();
 		
 	}
+
+	@Override
+	public String deleteExam(String examId) {
+		
+		mongoTemplate.remove(mongoTemplate.findById(examId, Exam.class));
+		return "Exam Deleted Successfully";
+	}
 	
 
 }

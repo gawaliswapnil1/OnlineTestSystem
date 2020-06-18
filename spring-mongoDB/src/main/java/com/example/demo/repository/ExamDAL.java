@@ -6,4 +6,5 @@ public interface ExamDAL {
 
 	public Exam getExam( String examId);
 	public String createExam(Exam exam);
+	public String deleteExam(String examId);
 }

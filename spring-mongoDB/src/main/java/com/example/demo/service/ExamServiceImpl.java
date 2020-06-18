@@ -72,5 +72,11 @@ public class ExamServiceImpl implements ExamService {
 		return examDAL.getExam(examId);
 	}
 
+	@Override
+	public String deleteExam(String examId) {
+		
+		return examDAL.deleteExam(examId);
+	}
+
 	
 }
