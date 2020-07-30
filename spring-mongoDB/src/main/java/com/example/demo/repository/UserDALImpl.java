@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.model.Question;
 import com.example.demo.model.User;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -69,18 +72,16 @@ public class UserDALImpl implements UserDAL{
 	@Override public String signUpUser(User user) {
 
 		
-		MongoCollection<Document> collection=mongoTemplate.getCollection("User");
-		String result="Please check userName or password";
-		BasicDBObject searchQuery = new BasicDBObject();
-		searchQuery.put("name",user.getName());
-		MongoCursor<Document> cursor = collection.find(searchQuery).cursor();
-		while (cursor.hasNext()) 
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").is(user.getName()));
+		List<User> userFound = mongoTemplate.find(query, User.class);
+		if(!userFound.isEmpty())
+		 return "UserName already exists please use another username";
+		else
 		{
-			Document dbDocument=cursor.next();
-			return "Please check userName";
+			mongoTemplate.save(user);
+			return "Account created successfully!!";
 		}
-
-		return result;
 
 	}
 

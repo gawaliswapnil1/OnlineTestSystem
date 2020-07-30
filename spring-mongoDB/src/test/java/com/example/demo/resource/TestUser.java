@@ -47,7 +47,8 @@ class TestUser {
 	@Test
 	void testSignUpCandidate()
 	{
-		
+		String username="swapnil";
+		String	passwrd="swapnil324";
 		
 	}
 	

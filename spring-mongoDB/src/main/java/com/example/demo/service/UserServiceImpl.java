@@ -35,14 +35,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String validateUser(User user) {
-
+		
 		return userdal.validateUser(user);
 	}
 
 
 
 	public String signUpUser(User user) {
-
+		user.setpassword(passwordEncoder.encode(user.getpassword()));
 		return userdal.signUpUser(user); }
 
 
