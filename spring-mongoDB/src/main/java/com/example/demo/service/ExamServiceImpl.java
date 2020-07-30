@@ -1,11 +1,16 @@
 package com.example.demo.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,8 @@ import com.example.demo.model.Exam;
 import com.example.demo.model.ExamTemplate;
 import com.example.demo.model.Question;
 import com.example.demo.repository.ExamDAL;
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
 
 @Service
 public class ExamServiceImpl implements ExamService {
@@ -89,19 +96,59 @@ public class ExamServiceImpl implements ExamService {
 
 	@Override
 	public String getExamPDF(String examId) {
-		Resource resource = resourceLoader.getResource("classpath:QuestionPaper.html");
+
 		Exam exam=examDAL.getExam(examId);
-		String content =null;
-		try {
-			InputStream input = resource.getInputStream();
-			File file = resource.getFile();
-			 content = new String(Files.readAllBytes(file.toPath()));
-			System.out.println(content);
-		} catch (IOException e) {
-			e.printStackTrace();
+		String qPaper =null;
+		if(exam!=null )
+		{
+
+			try {
+				qPaper=getResourceFile("QuestionPaper.html");
+				String singleQuestion=getResourceFile("Question.html");
+
+				StringBuilder wholeQuestion=new StringBuilder();
+				List<Question> questions=exam.getQuestions();
+				for(int i=0;i<questions.size();i++)
+				{
+					String contentQuestion=singleQuestion;
+					contentQuestion=contentQuestion.replace("@Question",(i+1)+".  "+questions.get(i).getQuestion());
+					ArrayList options=questions.get(i).getChoices();
+					StringBuilder contentOption=new StringBuilder();
+					for(int j=0;j<options.size();j++)
+					{
+						Map<String, String> hMap	=(Map) options.get(j);				
+						for ( String key : hMap.keySet()) {
+							contentOption.append(key +"."+hMap.get(key)+"</br>");
+						}
+					}
+					contentQuestion=contentQuestion.replace("@option", contentOption);
+					wholeQuestion.append(contentQuestion);
+				}
+				qPaper=qPaper.replace("@MainSection", wholeQuestion);
+				String path = "C:\\tmp\\input.txt";
+				Files.write( Paths.get(path), qPaper.getBytes());
+				//create PDF from 	
+				File htmlSource = new File("C:\\tmp\\input.txt");
+				File pdfDest = new File("D:\\QuesrionPaper.pdf");
+				// pdfHTML specific code
+				ConverterProperties converterProperties = new ConverterProperties();
+				HtmlConverter.convertToPdf(new FileInputStream(htmlSource),  new FileOutputStream(pdfDest), converterProperties);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return "file created at D:\\QuestionPaper.pdf";
+	}
+
+	private String getResourceFile(String fileName) throws IOException
+	{
+		Resource resource = resourceLoader.getResource("classpath:"+fileName);
+		InputStream input = resource.getInputStream();
+		File file = resource.getFile();
+		String content = new String(Files.readAllBytes(file.toPath()));
 		return content;
 	}
+
 
 
 }

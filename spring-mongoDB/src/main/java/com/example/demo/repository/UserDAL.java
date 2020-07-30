@@ -13,5 +13,5 @@ public interface UserDAL {
 	List<User> findAllUsers();
 	String validateUser(User user);
 	String signUpUser(User user);
-
+	List<User> findAllCandidate();
 }

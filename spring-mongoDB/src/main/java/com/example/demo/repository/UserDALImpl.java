@@ -70,7 +70,6 @@ public class UserDALImpl implements UserDAL{
 
 
 	@Override public String signUpUser(User user) {
-
 		
 		Query query = new Query();
 		query.addCriteria(Criteria.where("name").is(user.getName()));
@@ -90,5 +89,14 @@ public class UserDALImpl implements UserDAL{
 	public PasswordEncoder passwordEncoder() {
 		//return NoOpPasswordEncoder.getInstance();
 		return new BCryptPasswordEncoder();
+	}
+
+	@Override
+	public List<User> findAllCandidate() {
+		  
+		Query query = new Query();
+		query.addCriteria(Criteria.where("role").is("user"));
+		List<User> users = mongoTemplate.find(query, User.class);
+		return users;	
 	}
 }
